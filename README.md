@@ -101,4 +101,12 @@ Serial.print("eof_speech ");Serial.println(info);
 }
 ```
 ## Funcionamiento
+En este ejercicio el objetivo es reproducir un archivo .wav situado en una SD externa. Para esto vamos a usar dos tipos de buses: SPI e I2S, para los que necesitaremos también tres librerías distintas: Audio.h, SD.h, FS.h. Antes de entrar en el setup() lo único que declaramos son los pines necesarios para conectarnos con la SD(SPI_MOSI,SPI_MISO,SPI_SCK,SPI_CS) y los pines necesarios para el amplificador MAX98357A (2S_DOUT, I2S_BCLK, I2S_LRC).
+
+Justo antes del setup() creamos el objeto Audio que nos servirá para configurar pines, volumen, etc. Ya dentro del setup() inicializamos el puerto serie y se establece el pin CS de la SD como salida. Con SPI.begin() configuramos los pines para la recepción de datos se haga desde la SD e inicializamos también la comunicación. Con el bus SPI ya funcionando, empezamos iniciando la función SD.begin() y configurando la comunicación I2S con la que enviaremos el audio leído de la SD.  Se establecen los pines de salida con audio.setPinout() y se puede cambiar el volumen con audio.setVolume(). Por último solo necesitamos usar la función audio.connectorFS() para marcar que fichero vamos a leer de la SD. Pasamos directamente el objeto SD y título de la canción a reproducir.
+
+Después de todos los preparativos, ya solo queda usar la función loop() de la librería audio que nos hace un bucle del fichero para reproducirlo en el void loop(). Finalmente, también se muestra información del sistema por el puerto serie al final del código.
+
+
+
 
