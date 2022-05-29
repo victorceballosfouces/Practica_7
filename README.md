@@ -31,7 +31,11 @@ delay(1000);
 }
 ```
 ## Funcionamiento
+Para la práctica necesitamos la librería ESP8266Audio que usaremos para generar el sonido y hacer la comunicación I2S. Además de esta, también debemos añadir unas librerías extra debido a la dependencia que tienen unas con otras y la ESP8266Audio mencionada anteriormente.
 
+Una vez en el loop inicializamos la comunicación serie. Declaramos la variable in que llevará el archivo de audio guardado en el fichero de tipo sampleaac.h.  aac se encargará de empezar la comunicación entre el decodificador y nuestra placa. Para acabar, out nos da la opción de modificar configuraciones como la ganancia, los pines de salida de la ESP32, etc.
+
+Finalmente en cuanto al loop, las tres funciones principales que usamos son de la clase AudioGenerator ACC: isRunning(), loop() y stop(). La variable isRunning permite confirmar al sistema que no existe ningún error y el fichero de audio se a recibido. Si esta es true, se llama al loop() que reproduce la muestras del fichero de audio y si es false se llama a stop() para cerrar el fichero.
 
 ## Código_7.2_Reproducción_SD
 ```cpp
